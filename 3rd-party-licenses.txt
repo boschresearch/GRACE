@@ -1,0 +1,201 @@
+Third-Party Licenses
+====================
+
+GRACE uses or can optionally build the components listed below. Third-party
+components are not relicensed under the GNU Affero General Public License.
+Their original copyright notices and license texts remain authoritative in the
+linked source trees or downloaded source archives.
+
+Optional USC-restricted planners
+--------------------------------
+
+The following optional solver implementations are licensed under University
+of Southern California research licenses rather than an OSI-approved
+open-source license. Their texts permit use, copying, modification, and
+distribution for educational, research, and non-profit purposes subject to the
+stated conditions. Commercial use requires separate permission from USC.
+
+The standard setup does not fetch or build these implementations. Their pinned
+submodule references use update=none; the separate targeted --checkout command
+in README.md obtains them directly from their source repositories. Bundled
+builds additionally require GRACE_ENABLE_USC_PLANNERS=ON (for example via the
+usc-grid preset). GRACE-owned adapters and registry metadata remain available
+without including the solver implementations.
+
+This opt-in mechanism is not a license exception or a determination of
+compatibility with GRACE's AGPL-3.0-only license. Source plugins link solver code;
+obtain appropriate legal review or permissions before redistributing combined
+artifacts or using the solvers outside their permitted purposes. Existing local
+checkouts and build outputs are not removed when opting out; they must not be
+included accidentally in standard distributions.
+
+Component: CBSH2-RTC
+Source:    backend/extern/classical/CBSH2-RTC
+Upstream:  https://github.com/Chuanlong-Zang/CBSH2-RTC
+License:   USC Research License
+Text:      backend/extern/classical/CBSH2-RTC/license.md
+
+Component: EECBS
+Source:    backend/extern/classical/EECBS
+Upstream:  https://github.com/Chuanlong-Zang/EECBS
+License:   USC Research License
+Text:      backend/extern/classical/EECBS/license.md
+
+Component: MAPF-LNS2
+Source:    backend/extern/classical/MAPF-LNS2
+Upstream:  https://github.com/Chuanlong-Zang/MAPF-LNS2
+License:   USC Research License; code in the PIBT folder is MIT licensed
+Text:      backend/extern/classical/MAPF-LNS2/license.txt
+
+Bundled planner submodules
+--------------------------
+
+Component: LACAM0
+Source:    backend/extern/classical/lacam0
+Upstream:  https://github.com/Chuanlong-Zang/lacam0
+License:   MIT
+Text:      backend/extern/classical/lacam0/LICENSE.txt
+
+Component: MAPF-GPT-DDG
+Source:    backend/extern/classical/MAPF-GPT-DDG
+Upstream:  https://github.com/Chuanlong-Zang/MAPF-GPT-DDG
+License:   MIT
+Text:      backend/extern/classical/MAPF-GPT-DDG/LICENSE
+
+Component: SCRIMP
+Source:    backend/extern/classical/SCRIMP
+Upstream:  https://github.com/Chuanlong-Zang/SCRIMP
+License:   MIT
+Text:      backend/extern/classical/SCRIMP/LICENSE
+
+Component: Continuous-CBS (CCBS)
+Source:    backend/extern/roadmap/CCBS
+Upstream:  https://github.com/Chuanlong-Zang/Continuous-CBS
+License:   MIT
+Text:      backend/extern/roadmap/CCBS/LICENSE.md
+
+Component: PSIPP-CTC
+Source:    backend/extern/roadmap/PSIPP-CTC
+Upstream:  https://github.com/Chuanlong-Zang/PSIPP-CTC
+License:   MIT
+Text:      backend/extern/roadmap/PSIPP-CTC/LICENSE
+
+Component: db-CBS
+Source:    backend/extern/continuous_space/db-CBS
+Upstream:  https://github.com/Chuanlong-Zang/db-CBS
+License:   MIT; nested projects retain their own licenses
+Text:      backend/extern/continuous_space/db-CBS/LICENSE
+
+Component: Multi-Robot OMPL / K-CBS
+Source:    backend/extern/continuous_space/K-CBS
+Upstream:  https://github.com/Chuanlong-Zang/Multi-Robot-OMPL
+License:   BSD 3-Clause
+Text:      backend/extern/continuous_space/K-CBS/LICENSE
+
+Frontend submodules and imported files
+--------------------------------------
+
+Component: enkiTS
+Source:    frontend/extern/enkiTS
+Upstream:  https://github.com/dougbinks/enkiTS
+License:   zlib
+Text:      frontend/extern/enkiTS/License.txt
+
+Component: jsmn
+Source:    frontend/extern/jsmn
+Upstream:  https://github.com/zserge/jsmn
+License:   MIT
+Text:      frontend/extern/jsmn/LICENSE
+
+Component: Box2D sample support files and shader assets
+Source:    frontend/extern/shared, frontend/data assets except droid_sans.ttf,
+           and adapted frontend application-framework files in main.cpp,
+           input, render, sample, and ui/ViewController
+Upstream:  https://github.com/erincatto/box2d
+License:   MIT
+Copyright: Erin Catto and contributors
+
+Component: Droid Sans
+Source:    frontend/data/droid_sans.ttf
+Upstream:  https://fonts.google.com/specimen/Droid+Sans
+License:   Apache License 2.0
+Copyright: Copyright 2007, Google Corporation
+Text:      licenses/Apache-2.0.txt
+
+Fetched or system dependencies
+------------------------------
+
+The build may fetch pinned source archives or use compatible system packages:
+
+Component: Box2D
+Upstream:  https://github.com/erincatto/box2d
+License:   MIT
+
+Component: fmt
+Upstream:  https://github.com/fmtlib/fmt
+License:   MIT
+
+Component: GoogleTest
+Upstream:  https://github.com/google/googletest
+License:   BSD 3-Clause
+
+Component: SFML
+Upstream:  https://github.com/SFML/SFML
+License:   zlib/png
+
+Component: Dear ImGui
+Upstream:  https://github.com/ocornut/imgui
+License:   MIT
+
+Component: ImGui-SFML
+Upstream:  https://github.com/SFML/imgui-sfml
+License:   MIT
+
+Component: Boost
+Upstream:  https://www.boost.org/
+License:   Boost Software License 1.0
+
+Component: OMPL
+Upstream:  https://ompl.kavrakilab.org/
+License:   BSD 3-Clause
+
+Component: pugixml
+Upstream:  https://pugixml.org/
+License:   MIT
+
+Component: yaml-cpp
+Upstream:  https://github.com/jbeder/yaml-cpp
+License:   MIT
+
+Component: Crocoddyl
+Upstream:  https://github.com/loco-3d/crocoddyl
+License:   BSD 3-Clause
+
+The fetched source archives contain the complete corresponding license texts.
+System packages are governed by the license information installed by the
+operating-system package manager.
+
+Box2D MIT license
+-----------------
+
+MIT License
+
+Copyright (c) 2022 Erin Catto
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,0 +1,209 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "FETCHCONTENT_UPDATES_DISCONNECTED": true,
+        "GRACE_DEPENDENCY_DOWNLOAD_DIR": "${sourceDir}/.cache/downloads",
+        "GRACE_USE_SYSTEM_BOX2D": false,
+        "GRACE_ENABLE_USC_PLANNERS": false
+      }
+    },
+    {
+      "name": "ci-fast",
+      "displayName": "CI fast backend",
+      "description": "Backend unit tests without bundled planners or frontend dependencies",
+      "inherits": "base",
+      "cacheVariables": {
+        "GRACE_BUILD_BACKEND": true,
+        "GRACE_BUILD_FRONTEND": false,
+        "GRACE_BUILD_TESTS": true,
+        "GRACE_BUILD_PLANNER_INTEGRATION_TESTS": false,
+        "GRACE_BUILD_BENCHMARKS": false,
+        "GRACE_PLANNER_PROFILE": "NONE",
+        "GRACE_USE_SYSTEM_FMT": true,
+        "GRACE_USE_SYSTEM_GTEST": true,
+        "GRACE_OPENROBOTS_PREFIX": ""
+      }
+    },
+    {
+      "name": "ci-integration",
+      "displayName": "CI frontend and service integration",
+      "description": "Backend, frontend, benchmarks, and all non-planner integration tests",
+      "inherits": "base",
+      "cacheVariables": {
+        "GRACE_BUILD_BACKEND": true,
+        "GRACE_BUILD_FRONTEND": true,
+        "GRACE_BUILD_TESTS": true,
+        "GRACE_BUILD_PLANNER_INTEGRATION_TESTS": false,
+        "GRACE_BUILD_BENCHMARKS": true,
+        "GRACE_PLANNER_PROFILE": "NONE",
+        "GRACE_USE_SYSTEM_FMT": true,
+        "GRACE_USE_SYSTEM_GTEST": true,
+        "GRACE_USE_SYSTEM_FRONTEND_DEPS": false,
+        "GRACE_OPENROBOTS_PREFIX": ""
+      }
+    },
+    {
+      "name": "ci-planners-grid",
+      "displayName": "CI native grid planners",
+      "description": "LaCAM0 grid integration without USC-restricted or Docker-backed planners",
+      "inherits": "ci-fast",
+      "cacheVariables": {
+        "GRACE_BUILD_PLANNER_INTEGRATION_TESTS": true,
+        "GRACE_PLANNER_PROFILE": "GRID"
+      }
+    },
+    {
+      "name": "usc-grid",
+      "displayName": "Optional USC grid planners",
+      "description": "Explicit opt-in to USC-restricted grid planners; review their licenses and fetch their submodules first",
+      "inherits": "ci-planners-grid",
+      "cacheVariables": {
+        "GRACE_ENABLE_USC_PLANNERS": true
+      }
+    },
+    {
+      "name": "ci-planners-roadmap",
+      "displayName": "CI roadmap planners",
+      "description": "CCBS and PSIPP-CTC bundled planner integrations",
+      "inherits": "ci-fast",
+      "cacheVariables": {
+        "GRACE_BUILD_PLANNER_INTEGRATION_TESTS": true,
+        "GRACE_PLANNER_PROFILE": "ROADMAP"
+      }
+    },
+    {
+      "name": "full",
+      "displayName": "Full standard local build",
+      "description": "Frontend, benchmarks, and standard planners; excludes USC-restricted planners",
+      "inherits": "base",
+      "cacheVariables": {
+        "GRACE_BUILD_BACKEND": true,
+        "GRACE_BUILD_FRONTEND": true,
+        "GRACE_BUILD_TESTS": true,
+        "GRACE_BUILD_PLANNER_INTEGRATION_TESTS": true,
+        "GRACE_BUILD_BENCHMARKS": true,
+        "GRACE_PLANNER_PROFILE": "FULL",
+        "GRACE_USE_SYSTEM_FMT": false,
+        "GRACE_USE_SYSTEM_GTEST": false,
+        "GRACE_USE_SYSTEM_FRONTEND_DEPS": false
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "ci-fast",
+      "configurePreset": "ci-fast",
+      "jobs": 4
+    },
+    {
+      "name": "ci-integration",
+      "configurePreset": "ci-integration",
+      "jobs": 4
+    },
+    {
+      "name": "ci-planners-grid",
+      "configurePreset": "ci-planners-grid",
+      "jobs": 4
+    },
+    {
+      "name": "usc-grid",
+      "configurePreset": "usc-grid",
+      "jobs": 4
+    },
+    {
+      "name": "ci-planners-roadmap",
+      "configurePreset": "ci-planners-roadmap",
+      "jobs": 4
+    },
+    {
+      "name": "full",
+      "configurePreset": "full",
+      "jobs": 4
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-fast",
+      "configurePreset": "ci-fast",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "ci-integration",
+      "configurePreset": "ci-integration",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "ci-planners-grid",
+      "configurePreset": "ci-planners-grid",
+      "filter": {
+        "include": {
+          "label": "planner-grid"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "usc-grid",
+      "inherits": "ci-planners-grid",
+      "configurePreset": "usc-grid"
+    },
+    {
+      "name": "ci-planners-roadmap",
+      "configurePreset": "ci-planners-roadmap",
+      "filter": {
+        "include": {
+          "label": "planner-roadmap"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4,
+        "noTestsAction": "error"
+      }
+    },
+    {
+      "name": "full",
+      "configurePreset": "full",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 4,
+        "noTestsAction": "error"
+      }
+    }
+  ]
+}

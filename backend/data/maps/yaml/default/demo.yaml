@@ -1,0 +1,43 @@
+# Copyright (c) 2026 Robert Bosch GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
+environment:
+  min: [0, 0]
+  max: [5, 5]
+  obstacles:
+    - { type: capsule, p0: [ 0.6, 2.5 ], p1: [ 2.01, 2.5 ], radius: 0.2 }  # left segment
+    - { type: capsule, p0: [ 2.83, 2.5 ], p1: [ 4.4, 2.5 ], radius: 0.2 }  # right segment
+    - { type: capsule, p0: [ 2.14, 0.55 ], p1: [ 3.61, 1.57 ], radius: 0.1 }
+    - { type: box, center: [ 1.57,3.99 ], size: [ 0.1, 0.8 ] }
+
+# effective radii: box 0.0559 circle 0.07 box 0.0781
+# grid cell 0.1562
+# --mode y2t --in demo.yaml --out tasks.xml --graph roadmap.xml
+# --mode c2r --in demo.yaml --out roadmap.xml --prm-samples 100 --prm-time 1.0 --radius 0.08 --no-pin
+robots:
+  - type: double_integrator_0
+    start: [1.628, 1.967, 0, 0 ]
+    goal: [ 4.71, 3.2, 0, 0 ]
+    footprint:
+      shape: box
+      size: [0.1, 0.05]              # meters
+
+  - type: double_integrator_0
+    start: [0.4, 0.8, 0, 0 ]
+    goal: [ 0.6, 4.2, 0, 0 ]
+    footprint:
+      shape: circle
+      radius: 0.07              # meters
+
+  - type: double_integrator_0
+    start: [ 1.2, 3.6, 0, 0 ]
+    goal: [ 3.8, 1.4, 0, 0 ]
+    footprint: { shape: circle, radius: 0.07 }
+
+  - type: double_integrator_0
+    start: [ 3.264, 4.0, 0, 0 ]
+    goal: [ 4.6, 1.52, 0, 0 ]
+    footprint:
+      shape: box
+      size: [ 0.12, 0.10 ]              # meters
+

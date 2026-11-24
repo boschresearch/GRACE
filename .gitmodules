@@ -1,0 +1,39 @@
+[submodule "backend/extern/classical/CBSH2-RTC"]
+	path = backend/extern/classical/CBSH2-RTC
+	url = https://github.com/Chuanlong-Zang/CBSH2-RTC.git
+	update = none
+[submodule "backend/extern/classical/EECBS"]
+	path = backend/extern/classical/EECBS
+	url = https://github.com/Chuanlong-Zang/EECBS.git
+	update = none
+[submodule "backend/extern/classical/lacam0"]
+	path = backend/extern/classical/lacam0
+	url = https://github.com/Chuanlong-Zang/lacam0.git
+[submodule "backend/extern/classical/MAPF-LNS2"]
+	path = backend/extern/classical/MAPF-LNS2
+	url = https://github.com/Chuanlong-Zang/MAPF-LNS2
+	update = none
+[submodule "backend/extern/classical/MAPF-GPT-DDG"]
+	path = backend/extern/classical/MAPF-GPT-DDG
+	url = https://github.com/Chuanlong-Zang/MAPF-GPT-DDG
+[submodule "backend/extern/classical/SCRIMP"]
+	path = backend/extern/classical/SCRIMP
+	url = https://github.com/Chuanlong-Zang/SCRIMP
+[submodule "backend/extern/roadmap/CCBS"]
+	path = backend/extern/roadmap/CCBS
+	url = https://github.com/Chuanlong-Zang/Continuous-CBS.git
+[submodule "backend/extern/roadmap/PSIPP-CTC"]
+	path = backend/extern/roadmap/PSIPP-CTC
+	url = https://github.com/Chuanlong-Zang/PSIPP-CTC.git
+[submodule "backend/extern/continuous_space/db-CBS"]
+	path = backend/extern/continuous_space/db-CBS
+	url = https://github.com/Chuanlong-Zang/db-CBS.git
+[submodule "backend/extern/continuous_space/K-CBS"]
+	path = backend/extern/continuous_space/K-CBS
+	url = https://github.com/Chuanlong-Zang/Multi-Robot-OMPL.git
+[submodule "frontend/extern/enkiTS"]
+	path = frontend/extern/enkiTS
+	url = https://github.com/dougbinks/enkiTS.git
+[submodule "frontend/extern/jsmn"]
+	path = frontend/extern/jsmn
+	url = https://github.com/zserge/jsmn.git

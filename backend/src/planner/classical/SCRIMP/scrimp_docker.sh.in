@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMAGE="@SCRIMP_DOCKER_IMAGE@"
+REPO_HOST="@SCRIMP_REPO_HOST_ROOT@"
+PY_WORKDIR="/workspace/backend/extern/classical/SCRIMP"
+
+# --- DEBUG: show what we're about to do ---
+echo "[wrap] image=${IMAGE}"
+echo "[wrap] driver=$1"
+echo "[wrap] repo_host=${REPO_HOST}"
+echo "[wrap] args: $*"
+
+# First arg is the in-container driver path (we configured it to /workspace/... in CMake)
+DRIVER_IN="$1"; shift
+
+# Find --outputPaths to mount its directory
+OUT=""
+ARGS=("$@")
+for i in "${!ARGS[@]}"; do
+  if [[ "${ARGS[$i]}" == "--outputPaths" ]]; then
+    OUT="${ARGS[$((i+1))]}"
+    break
+  fi
+done
+if [[ -z "$OUT" ]]; then
+  echo "[scrimp_docker] --outputPaths not provided" >&2
+  exit 2
+fi
+WDIR="$(dirname "$OUT")"
+echo "[wrap] wdir_for_output=${WDIR}"
+
+# GPU flag from --device
+DEV=""
+for i in "${!ARGS[@]}"; do
+  if [[ "${ARGS[$i]}" == "--device" ]]; then
+    DEV="${ARGS[$((i+1))]}"
+    break
+  fi
+done
+GPU_FLAG=""
+if [[ "$DEV" == "cuda" ]]; then
+  GPU_FLAG="--gpus all"
+fi
+echo "[wrap] gpu_flag=${GPU_FLAG}"
+
+exec docker run --rm ${GPU_FLAG} \
+  -e PYTHONUNBUFFERED=1 \
+  -e PYTHONPATH="${PY_WORKDIR}" \
+  -v "${REPO_HOST}":/workspace \
+  -v "$WDIR":"$WDIR" \
+  -w "${PY_WORKDIR}" \
+  "$IMAGE" \
+  python -u "$DRIVER_IN" "${ARGS[@]}"

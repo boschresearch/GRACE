@@ -1,0 +1,51 @@
+// Copyright (c) 2026 Robert Bosch GmbH
+// SPDX-License-Identifier: AGPL-3.0-only
+
+#include "planner/plugin/PlannerRegistry.h"
+
+#include <algorithm>
+#include <array>
+#include <stdexcept>
+
+@GRACE_PLANNER_BINARY_INCLUDES@
+
+namespace grace::planner {
+namespace {
+
+template <typename Planner, typename Config>
+std::unique_ptr<IPlanner> createBuiltInPlanner() {
+    return std::make_unique<Planner>(Config{});
+}
+
+constexpr std::array<PlannerDescriptor, @GRACE_PLANNER_DESCRIPTOR_COUNT@>
+    kPlanners{{
+@GRACE_PLANNER_DESCRIPTOR_ENTRIES@}};
+
+}  // namespace
+
+std::span<const PlannerDescriptor> registeredPlanners() noexcept {
+    return kPlanners;
+}
+
+const PlannerDescriptor* findPlanner(const std::string_view id) noexcept {
+    const auto planner = std::ranges::find(
+        kPlanners, id, &PlannerDescriptor::id);
+    return planner == kPlanners.end() ? nullptr : &*planner;
+}
+
+const PlannerDescriptor& defaultPlanner(
+    const EnvironmentType environment) {
+    const auto planner = std::ranges::find_if(
+        kPlanners,
+        [environment](const PlannerDescriptor& descriptor) {
+            return descriptor.environment == environment &&
+                   descriptor.isDefault;
+        });
+    if (planner == kPlanners.end()) {
+        throw std::invalid_argument(
+            "No default planner registered for the requested environment");
+    }
+    return *planner;
+}
+
+}  // namespace grace::planner

@@ -1,0 +1,19 @@
+{
+  "grid": {
+    "maps": [
+      "backend/data/maps/movingAI/default/random-32-32-20.map"
+    ],
+    "scens": [
+      "backend/data/maps/movingAI/default/random-32-32-20-random-1.scen"
+    ],
+    "grid_cell": 1.0,
+    "grid_boundary_scale": 0.5
+  },
+  "solvers": ["lacam0-bin", "lacam0-src"],
+  "out_dir": "results",
+  "takeK": [22],
+  "repeat": 3,
+  "dt": 0.0166667,
+  "state_csv": true,
+  "state_every": 60
+}

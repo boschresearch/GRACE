@@ -1,0 +1,35 @@
+# Copyright (c) 2026 Robert Bosch GmbH
+# SPDX-License-Identifier: AGPL-3.0-only
+
+environment:
+  min: [0, 0]
+  max: [5, 5]
+  obstacles:
+    - type: polygon
+      points: [[0.2,0.6],[0.3,0.7],[0.4,0.65]]
+    - { type: box, center: [ 4.4,4.4 ], size: [ 0.1, 0.1 ] }
+    - { type: circle, center: [ 2.7,2.7 ], radius: 0.1 }
+    - { type: capsule, p0: [ 1.6, 1.5 ], p1: [ 1.9, 1.5 ], radius: 0.1}
+robots:
+  - type: double_integrator_0
+    start: [1, 2.5, 0, 0]
+    goal:  [4, 2.5, 0, 0]
+    footprint:
+      shape: circle
+      radius: 0.20              # meters
+
+  # - type: unicycle_first_order_0
+  #   start: [4, 2.5, 0]
+  #   goal:  [1, 2.5, 0]
+  #   footprint:
+  #     shape: box
+  #     size:  [0.60, 0.30]       # full width x height (meters)
+
+  # - type: car_first_order_with_1_trailers_0
+  #   start: [1.0, 1.0]
+  #   goal:  [4.0, 4.0]
+  #   footprint:
+  #     shape: multibox
+  #     boxes:
+  #       - { center: [0.0,  0.0], size: [0.5, 0.25], angle: 0.0 }   # head
+  #       - { center: [-0.5, 0.0], size: [0.3, 0.25], angle: 0.0 }  # trailer
